@@ -64,10 +64,6 @@ border-radius:12px;text-align:left;color:white;min-height:100px;cursor:pointer}
 .tile span{display:block;font-size:12px;color:var(--muted);margin-top:7px}
 .tag{display:inline-block;padding:5px 9px;border-radius:20px;
 background:#26372b;color:var(--green);font-size:10px}
-.notice{font-size:11px;color:#e8d4a4;background:#302817;
-padding:12px;border-radius:9px;margin-top:12px;line-height:1.5}
-video{width:100%;border-radius:12px;margin-top:12px;
-background:black;max-height:400px}
 .item{padding:13px;background:var(--card);border:1px solid var(--line);
 border-radius:10px;margin:9px 0;overflow-wrap:anywhere}
 .toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);
@@ -86,13 +82,10 @@ footer{text-align:center;color:var(--muted);font-size:10px;padding:30px}
 
 <nav id="navigation">
 <button class="active" data-page="home">Accueil</button>
-<button data-page="accounts">Comptes</button>
-<button data-page="analysis">Analyse</button>
-<button data-page="downloader">Vidéos</button>
-<button data-page="studio">Repost Studio</button>
+<button data-page="assistant">Assistant IA</button>
+<button data-page="linktool">Lien & Analyse</button>
 <button data-page="scripts">Scripts</button>
-<button data-page="trends">Tendances</button>
-<button data-page="compare">Comparer</button>
+<button data-page="studio">Repost Studio</button>
 <button data-page="library">Bibliothèque</button>
 </nav>
 
@@ -102,243 +95,132 @@ footer{text-align:center;color:var(--muted);font-size:10px;padding:30px}
 <section class="page active" id="home">
 <div class="hero">
 <span class="tag">VIRAL CONTENT INTELLIGENCE</span>
-<h1>Crée mieux.<br><span>Comprends le viral.</span></h1>
-<p>Génère des scripts, prépare tes montages et organise tes idées directement sur ton téléphone.</p>
+<h1>Colle un lien ou une idée.<br><span>L'IA répond direct.</span></h1>
+<p>Pose tes questions, colle un lien ou génère un script complet en un clic.</p>
 </div>
 
 <div class="grid">
-<button class="tile" onclick="go('accounts')">
-<b>◎</b><strong>Recherche de comptes</strong>
-<span>Liens de recherche ciblés par niche et format.</span>
+<button class="tile" onclick="go('assistant')">
+<b>✦</b><strong>Assistant IA</strong>
+<span>Répond à toute question, lien ou consigne.</span>
 </button>
-<button class="tile" onclick="go('analysis')">
-<b>◉</b><strong>Analyse vidéo</strong>
-<span>Grille d'audit et points clés à vérifier.</span>
+<button class="tile" onclick="go('linktool')">
+<b>⌘</b><strong>Lien & Analyse</strong>
+<span>Colle un lien + ce que tu veux en faire.</span>
 </button>
-<button class="tile" onclick="go('downloader')">
-<b>↓</b><strong>Importer une vidéo</strong>
-<span>Prévisualiser un fichier vidéo local.</span>
+<button class="tile" onclick="go('scripts')">
+<b>✎</b><strong>Scripts IA</strong>
+<span>Génère hooks, voix off et texte complet.</span>
 </button>
 <button class="tile" onclick="go('studio')">
 <b>▣</b><strong>Repost Studio</strong>
-<span>Découpage et angles pour refaire une vidéo.</span>
+<span>Nouvel angle, découpage et idées de montage.</span>
 </button>
-<button class="tile" onclick="go('scripts')">
-<b>✎</b><strong>Scripts</strong>
-<span>Générer hooks, voix off et structure de vidéo.</span>
+<button class="tile" onclick="go('library')">
+<b>▤</b><strong>Bibliothèque</strong>
+<span>Retrouve et copie tes résultats sauvegardés.</span>
 </button>
-<button class="tile" onclick="go('trends')">
-<b>↗</b><strong>Radar des tendances</strong>
-<span>Requêtes ciblées par pays et plateforme.</span>
+<button class="tile" onclick="go('assistant')">
+<b>⚡</b><strong>Action rapide</strong>
+<span>Aller directement poser une demande libre.</span>
 </button>
-</div>
-
-<h2>Ton espace de travail</h2>
-<div class="card">
-<strong>Formatok actif en mode local (0 FCFA).</strong>
-<p class="muted">Les générateurs de scripts, plans de montage et la bibliothèque fonctionnent sans serveur payant. Les recherches ouvrent les plateformes dans ton navigateur.</p>
 </div>
 </section>
 
-<!-- RECHERCHE DE COMPTES -->
-<section class="page" id="accounts">
-<h2>Recherche intelligente de comptes</h2>
-<p class="muted">Génère des liens de recherche directs selon ta niche et ton format.</p>
+<!-- ASSISTANT IA TOUT-EN-UN -->
+<section class="page" id="assistant">
+<h2>Assistant IA (Tout-en-un)</h2>
+<p class="muted">Colle un lien, écris une question ou donne une consigne : l'IA te répond directement.</p>
 
 <div class="card">
-<label>Quelle niche recherches-tu ?</label>
-<input id="niche" placeholder="Ex : football, cuisine, animaux...">
-
-<label>Plateforme</label>
-<select id="platform">
-<option value="TikTok">TikTok</option>
-<option value="Instagram">Instagram</option>
-<option value="YouTube">YouTube</option>
-<option value="Facebook">Facebook</option>
-<option value="toutes">Toutes les plateformes</option>
+<label>Moteur IA</label>
+<select id="aiProvider">
+<option value="groq" selected>Groq (rapide)</option>
 </select>
 
-<label>Type de contenu</label>
-<select id="accountType">
-<option>Voix off et storytelling</option>
-<option>Repost amélioré</option>
-<option>Documentaire court</option>
-<option>Commentaire</option>
-<option>Tutoriel</option>
-<option>Histoire réelle</option>
-</select>
+<label>Ta demande, question ou lien</label>
+<textarea id="aiPrompt" placeholder="Ex : https://vm.tiktok.com/ZGdX3gS89/ — fais-moi 3 hooks viraux et un script de 30s sur le même thème..."></textarea>
 
-<button class="action" onclick="searchAccounts()">Générer les liens de recherche</button>
-<div id="accountOutput" class="output">Les liens de recherche apparaîtront ici.</div>
+<button class="action" onclick="runAssistant()">Exécuter avec l'IA</button>
+<div id="aiOutput" class="output">La réponse apparaîtra ici.</div>
 <div class="btn-row">
-<button class="action secondary" onclick="copyText('accountOutput')">Copier</button>
-<button class="action secondary" onclick="saveFromOutput('accountOutput','Recherche comptes')">Sauvegarder</button>
+<button class="action secondary" onclick="copyText('aiOutput')">Copier</button>
+<button class="action secondary" onclick="saveFromOutput('aiOutput','Réponse IA')">Sauvegarder</button>
 </div>
 </div>
 </section>
 
-<!-- ANALYSE VIDEO -->
-<section class="page" id="analysis">
-<h2>Analyse vidéo intelligente</h2>
+<!-- LIEN & ANALYSE -->
+<section class="page" id="linktool">
+<h2>Lien & Analyse IA</h2>
+<p class="muted">Colle un lien et dis ce que tu veux que l'IA produise à partir de ce lien.</p>
+
 <div class="card">
-<label>Lien de la vidéo</label>
-<input id="analysisLink" placeholder="Colle ton lien TikTok, Instagram...">
+<label>Colle le lien (TikTok, Instagram, YouTube, etc.)</label>
+<input id="linkInput" placeholder="https://vm.tiktok.com/...">
 
-<label>Décris la vidéo ou ses scènes</label>
-<textarea id="analysisNotes" placeholder="Que se passe-t-il ? Quelle est la voix off ? Comment commence la vidéo ?"></textarea>
+<label>Ce que tu veux faire avec ce lien</label>
+<textarea id="linkAction" placeholder="Ex : donne-moi un script original inspiré de ce lien, un hook choc et des idées de plans..."></textarea>
 
-<button class="action" onclick="analyzeVideo()">Générer la grille d'analyse</button>
-<div id="analysisOutput" class="output">Ta grille d'analyse apparaîtra ici.</div>
+<button class="action" onclick="runLinkTool()">Traiter le lien avec l'IA</button>
+<div id="linkOutput" class="output">Le résultat apparaîtra ici.</div>
 <div class="btn-row">
-<button class="action secondary" onclick="copyText('analysisOutput')">Copier</button>
-<button class="action secondary" onclick="saveFromOutput('analysisOutput','Analyse vidéo')">Sauvegarder</button>
-</div>
-</div>
-</section>
-
-<!-- IMPORTATION -->
-<section class="page" id="downloader">
-<h2>Video Import Center</h2>
-<div class="card">
-<label>Colle le lien de la vidéo</label>
-<input id="mediaLink" placeholder="Lien TikTok, Instagram, YouTube...">
-<button class="action" onclick="checkMedia()">Vérifier le lien</button>
-<div id="mediaStatus" class="output">Aucun lien vérifié.</div>
-
-<label>Ou importe une vidéo depuis ton téléphone</label>
-<input type="file" id="videoFile" accept="video/*">
-
-<div id="videoInfo" class="output">Aucune vidéo importée.</div>
-<video id="preview" controls style="display:none"></video>
-</div>
-<div class="notice">
-La lecture vidéo locale fonctionne sur ton appareil. Le téléchargement direct depuis TikTok/Instagram/YouTube n'est pas intégré.
-</div>
-</section>
-
-<!-- REPOST STUDIO -->
-<section class="page" id="studio">
-<h2>Repost Studio</h2>
-<p class="muted">Transforme une idée ou vidéo existante en plan de création structuré.</p>
-<div class="card">
-<label>Décris la vidéo ou l'idée originale</label>
-<textarea id="originalVideo" placeholder="Ex : un but refusé à la dernière minute ou une astuce cuisine rapide..."></textarea>
-
-<label>Objectif</label>
-<input id="repostGoal" placeholder="Ex : captiver en 3 secondes et aller à l'essentiel en 45s">
-
-<label>Style</label>
-<select id="repostStyle">
-<option>Storytelling viral</option>
-<option>Documentaire</option>
-<option>Suspense</option>
-<option>Émotionnel</option>
-<option>Éducatif</option>
-</select>
-
-<button class="action" onclick="makeRepost()">Générer le plan</button>
-<div id="repostOutput" class="output">Ton plan apparaîtra ici.</div>
-<div class="btn-row">
-<button class="action secondary" onclick="copyText('repostOutput')">Copier</button>
-<button class="action secondary" onclick="saveFromOutput('repostOutput','Plan Repost Studio')">Sauvegarder</button>
+<button class="action secondary" onclick="copyText('linkOutput')">Copier</button>
+<button class="action secondary" onclick="saveFromOutput('linkOutput','Analyse Lien IA')">Sauvegarder</button>
 </div>
 </div>
 </section>
 
 <!-- SCRIPTS -->
 <section class="page" id="scripts">
-<h2>Générateur de scripts</h2>
+<h2>Générateur de scripts IA</h2>
 <div class="card">
-<label>Sujet de la vidéo</label>
-<input id="topic" placeholder="Ex : pourquoi ce joueur a disparu du terrain ?">
+<label>Sujet ou lien de référence</label>
+<input id="topic" placeholder="Ex : pourquoi ce joueur a disparu ou colle un lien">
 
-<label>Niche</label>
-<input id="scriptNiche" placeholder="Ex : football, cuisine, finance...">
+<label>Niche / Style / Durée</label>
+<input id="scriptMeta" placeholder="Ex : football, storytelling viral, 45 secondes">
 
-<label>Durée</label>
-<select id="duration">
-<option>30 secondes</option>
-<option selected>45 secondes</option>
-<option>60 secondes</option>
-<option>90 secondes</option>
-</select>
+<label>Instructions</label>
+<textarea id="instructions" placeholder="Ex : hook fort en 3s, voix off dynamique, fin avec question..."></textarea>
 
-<label>Style de narration</label>
-<select id="tone">
-<option>Storytelling viral</option>
-<option>Documentaire</option>
-<option>Suspense</option>
-<option>Émotionnel</option>
-<option>Éducatif</option>
-</select>
-
-<label>Instructions supplémentaires</label>
-<textarea id="instructions" placeholder="Ex : ton direct, phrases courtes, fin avec question..."></textarea>
-
-<button class="action" onclick="generateScript()">Générer mon script</button>
+<button class="action" onclick="generateScript()">Générer le script</button>
 <div id="scriptOutput" class="output">Ton script apparaîtra ici.</div>
 <div class="btn-row">
 <button class="action secondary" onclick="copyText('scriptOutput')">Copier</button>
-<button class="action secondary" onclick="saveFromOutput('scriptOutput','Script vidéo')">Sauvegarder</button>
+<button class="action secondary" onclick="saveFromOutput('scriptOutput','Script IA')">Sauvegarder</button>
 </div>
 </div>
 </section>
 
-<!-- TENDANCES -->
-<section class="page" id="trends">
-<h2>Radar des tendances</h2>
+<!-- REPOST STUDIO -->
+<section class="page" id="studio">
+<h2>Repost Studio IA</h2>
 <div class="card">
-<label>Ta niche</label>
-<input id="trendNiche" placeholder="Ex : football">
+<label>Vidéo source (lien ou description)</label>
+<textarea id="originalVideo" placeholder="Colle un lien ou décris l'idée de départ..."></textarea>
 
-<label>Pays ou audience</label>
-<input id="trendCountry" placeholder="Ex : France, Royaume-Uni, Togo">
+<label>Ce que tu veux obtenir</label>
+<input id="repostGoal" placeholder="Ex : une version courte, accrocheuse et originale">
 
-<label>Plateforme</label>
-<select id="trendPlatform">
-<option>TikTok</option>
-<option>Instagram</option>
-<option>YouTube</option>
-<option>Facebook</option>
-</select>
-
-<button class="action" onclick="searchTrends()">Lancer la recherche de tendances</button>
-<div id="trendOutput" class="output">Les pistes apparaîtront ici.</div>
+<button class="action" onclick="makeRepost()">Générer la version</button>
+<div id="repostOutput" class="output">Ta proposition apparaîtra ici.</div>
 <div class="btn-row">
-<button class="action secondary" onclick="copyText('trendOutput')">Copier</button>
-<button class="action secondary" onclick="saveFromOutput('trendOutput','Veille tendances')">Sauvegarder</button>
-</div>
-</div>
-</section>
-
-<!-- COMPARATEUR -->
-<section class="page" id="compare">
-<h2>Analyse comparative</h2>
-<div class="card">
-<label>Lien ou nom du contenu A</label>
-<input id="compareA" placeholder="Premier lien ou vidéo A">
-
-<label>Lien ou nom du contenu B</label>
-<input id="compareB" placeholder="Deuxième lien ou vidéo B">
-
-<button class="action" onclick="compareContent()">Générer la fiche comparative</button>
-<div id="compareOutput" class="output">Résultat de la comparaison.</div>
-<div class="btn-row">
-<button class="action secondary" onclick="copyText('compareOutput')">Copier</button>
-<button class="action secondary" onclick="saveFromOutput('compareOutput','Comparaison')">Sauvegarder</button>
+<button class="action secondary" onclick="copyText('repostOutput')">Copier</button>
+<button class="action secondary" onclick="saveFromOutput('repostOutput','Repost IA')">Sauvegarder</button>
 </div>
 </div>
 </section>
 
 <!-- BIBLIOTHEQUE -->
 <section class="page" id="library">
-<h2>Ma bibliothèque personnelle</h2>
+<h2>Ma bibliothèque</h2>
 <div class="card">
 <label>Titre</label>
-<input id="saveTitle" placeholder="Nom de ton projet">
+<input id="saveTitle" placeholder="Titre de ta note">
 
-<label>Contenu à sauvegarder</label>
-<textarea id="saveContent" placeholder="Colle ton script, lien ou analyse..."></textarea>
+<label>Contenu</label>
+<textarea id="saveContent" placeholder="Texte à enregistrer..."></textarea>
 
 <button class="action" onclick="saveItem()">Enregistrer</button>
 </div>
@@ -351,6 +233,8 @@ La lecture vidéo locale fonctionne sur ton appareil. Le téléchargement direct
 <div id="toast" class="toast"></div>
 
 <script>
+const GROQ_API_KEY = "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";
+
 const tg=window.Telegram?.WebApp;
 if(tg){tg.ready();tg.expand();}
 
@@ -390,131 +274,78 @@ ta.remove();
 
 function saveFromOutput(elementId,defaultTitle){
 const txt=document.getElementById(elementId).textContent.trim();
-if(!txt||txt.endsWith("ici.")||txt==="Résultat de la comparaison."){
-notify("Génère d'abord un contenu");return;
+if(!txt||txt.endsWith("ici.")||txt==="Traitement en cours..."){
+notify("Génère d'abord un résultat");return;
 }
 let items=JSON.parse(localStorage.getItem("formatokItems")||"[]");
 items.unshift({title:defaultTitle,content:txt,date:new Date().toLocaleString("fr-FR")});
 localStorage.setItem("formatokItems",JSON.stringify(items));
 renderLibrary();
-notify("Ajouté à la bibliothèque");
+notify("Enregistré !");
 }
 
-function searchAccounts(){
-const niche=document.getElementById("niche").value.trim();
-const platform=document.getElementById("platform").value;
-const type=document.getElementById("accountType").value;
-if(!niche){notify("Entre une niche");return;}
-let links=[];
-const q=encodeURIComponent(niche+" "+type);
-if(platform==="TikTok"||platform==="toutes")
-links.push("TikTok : https://www.tiktok.com/search?q="+q);
-if(platform==="Instagram"||platform==="toutes")
-links.push("Instagram : https://www.google.com/search?q=site%3Ainstagram.com%2Freel%2F+"+q);
-if(platform==="YouTube"||platform==="toutes")
-links.push("YouTube : https://www.youtube.com/results?search_query="+q);
-if(platform==="Facebook"||platform==="toutes")
-links.push("Facebook : https://www.google.com/search?q=site%3Afacebook.com%2Freel%2F+"+q);
+async function callAI(promptText, outputId){
+const out=document.getElementById(outputId);
+if(!promptText.trim()){notify("Écris ou colle quelque chose d'abord");return;}
+out.textContent="Traitement en cours...";
 
-document.getElementById("accountOutput").textContent=
-"RECHERCHE : "+niche+" ("+type+")\n\n"+
-links.join("\n\n")+
-"\n\nÀ observer sur les comptes trouvés :\n- Les 3 premières secondes (accroche)\n- La vitesse des coupures\n- Le rythme de la voix off";
+const systemMsg="Tu es un assistant pratique et direct en français. Réponds clairement et concrètement à ce que l'utilisateur demande, même s'il colle un lien ou une courte consigne. Si un lien social (TikTok, Instagram, YouTube, etc.) est donné sans que tu puisses lire la vidéo directement, exploite le lien et propose immédiatement des hooks, scripts, angles et plans d'action exploitables sans te plaindre.";
+
+try{
+if(!GROQ_API_KEY||GROQ_API_KEY.includes("COLLE_TA_CLE")){
+out.textContent="Ajoute ta clé GROQ_API_KEY dans le code.";return;
 }
-
-function analyzeVideo(){
-const link=document.getElementById("analysisLink").value.trim();
-const notes=document.getElementById("analysisNotes").value.trim();
-if(!link&&!notes){notify("Ajoute un lien ou des notes");return;}
-document.getElementById("analysisOutput").textContent=
-"FICHE D'ANALYSE\n"+
-"Source : "+(link||"Non précisée")+"\n"+
-(notes?"Notes : "+notes+"\n":"")+
-"\n1. Accroche (0-3s) : quel élément visuel ou sonore retient l'attention ?\n"+
-"2. Enjeu : pourquoi le spectateur doit-il rester jusqu'à la fin ?\n"+
-"3. Rythme : à quel intervalle l'image ou le plan change-t-il ?\n"+
-"4. Clarté audio : le message est-il compréhensible sans le son ?\n"+
-"5. Fin : y a-t-il une chute nette ou une question qui relance ?";
-}
-
-function checkMedia(){
-const link=document.getElementById("mediaLink").value.trim();
-if(!link){notify("Colle un lien");return;}
-let host;
-try{host=new URL(link).hostname;}catch(e){notify("Lien invalide");return;}
-document.getElementById("mediaStatus").textContent=
-"Domaine : "+host+"\nLien valide. Utilise l'importation de fichier ci-dessous pour lire une vidéo locale sur ton téléphone.";
-}
-
-let currentVideo=null;
-document.getElementById("videoFile").addEventListener("change",e=>{
-const f=e.target.files[0];
-if(!f)return;
-if(currentVideo)URL.revokeObjectURL(currentVideo);
-currentVideo=URL.createObjectURL(f);
-const v=document.getElementById("preview");
-v.src=currentVideo;v.style.display="block";
-document.getElementById("videoInfo").textContent=
-"Fichier : "+f.name+"\nTaille : "+(f.size/1024/1024).toFixed(2)+" MB";
+const res=await fetch("https://api.groq.com/openai/v1/chat/completions",{
+method:"POST",
+headers:{
+"Content-Type":"application/json",
+"Authorization":"Bearer "+GROQ_API_KEY
+},
+body:JSON.stringify({
+model:"llama-3.3-70b-versatile",
+messages:[
+{role:"system",content:systemMsg},
+{role:"user",content:promptText}
+],
+temperature:0.7
+})
 });
+const data=await res.json();
+if(!res.ok){out.textContent="Erreur Groq : "+(data.error?.message||res.status);return;}
+out.textContent=data.choices?.[0]?.message?.content||"Aucune réponse.";
+}catch(err){
+out.textContent="Erreur réseau : "+err.message;
+}
+}
 
-function makeRepost(){
-const source=document.getElementById("originalVideo").value.trim();
-const goal=document.getElementById("repostGoal").value.trim();
-const style=document.getElementById("repostStyle").value;
-if(!source){notify("Décris la vidéo ou l'idée");return;}
-const obj=goal||"créer une version claire et dynamique";
-document.getElementById("repostOutput").textContent=
-"PLAN DE PRODUCTION ("+style+")\n"+
-"Objectif : "+obj+"\n\n"+
-"[00:00 - 00:03] Accroche : poser le point clé de \""+source+"\" sans détour.\n"+
-"[00:03 - 00:15] Mise en contexte : expliquer ce qui se passe et pourquoi ça compte.\n"+
-"[00:15 - 00:35] Corps : détailler les faits ou étapes avec des plans courts.\n"+
-"[00:35 - FIN] Fin : résumer l'idée principale et inviter à commenter ou partager.";
+function runAssistant(){
+const q=document.getElementById("aiPrompt").value.trim();
+callAI(q,"aiOutput");
+}
+
+function runLinkTool(){
+const link=document.getElementById("linkInput").value.trim();
+const action=document.getElementById("linkAction").value.trim();
+if(!link&&!action){notify("Colle un lien ou écris ta demande");return;}
+const prompt=`Lien : ${link || "non fourni"}\nAction demandée : ${action || "propose un angle viral, 3 hooks et un script court prêt à tourner"}`;
+callAI(prompt,"linkOutput");
 }
 
 function generateScript(){
 const topic=document.getElementById("topic").value.trim();
-const niche=document.getElementById("scriptNiche").value.trim();
-const duration=document.getElementById("duration").value;
-const tone=document.getElementById("tone").value;
+const meta=document.getElementById("scriptMeta").value.trim();
 const extra=document.getElementById("instructions").value.trim();
-if(!topic){notify("Entre un sujet");return;}
-const nicheLabel=niche?niche:"ta thématique";
-document.getElementById("scriptOutput").textContent=
-"SCRIPT ("+duration+" · "+tone+" · "+nicheLabel+")\n\n"+
-"1. HOOK (0-3s)\n\""+topic+" — voici ce que la plupart des gens ratent.\"\n\n"+
-"2. DÉVELOPPEMENT\n- Contexte : explique brièvement pourquoi \""+topic+"\" attire l'attention en "+nicheLabel+".\n"+
-"- Point clé 1 : donne le fait principal en une phrase courte.\n"+
-"- Point clé 2 : ajoute un exemple concret ou un contraste.\n\n"+
-"3. CONCLUSION / CTA\nRésume en une phrase forte et pose une question simple aux spectateurs."
-+(extra?"\n\nConsignes appliquées : "+extra:"");
+if(!topic&&!extra){notify("Entre un sujet ou des instructions");return;}
+const prompt=`Écris un script vidéo prêt à lire.\nSujet / lien : ${topic || "libre"}\nInfos : ${meta || "format court"}\nConsignes : ${extra || "hook percutant, texte fluide et fin claire"}`;
+callAI(prompt,"scriptOutput");
 }
 
-function searchTrends(){
-const niche=document.getElementById("trendNiche").value.trim();
-const country=document.getElementById("trendCountry").value.trim();
-const platform=document.getElementById("trendPlatform").value;
-if(!niche){notify("Entre une niche");return;}
-const queryText=[niche,country,platform,"tendances"].filter(Boolean).join(" ");
-const url=platform==="YouTube"
-?"https://www.youtube.com/results?search_query="+encodeURIComponent(queryText)
-:"https://www.google.com/search?q="+encodeURIComponent(queryText);
-document.getElementById("trendOutput").textContent=
-"REQUÊTE : "+queryText+"\nLien : "+url+"\n\nOuverture dans un nouvel onglet...";
-window.open(url,"_blank");
-}
-
-function compareContent(){
-const a=document.getElementById("compareA").value.trim();
-const b=document.getElementById("compareB").value.trim();
-if(!a||!b){notify("Renseigne A et B");return;}
-document.getElementById("compareOutput").textContent=
-"COMPARATIF\nA : "+a+"\nB : "+b+"\n\n"+
-"- Accroche : lequel capte l'attention en premier ?\n"+
-"- Rythme : lequel enchaîne le plus efficacement les idées ?\n"+
-"- Rétention : lequel donne le plus envie d'aller au bout ?\n"+
-"- Reprise : quel angle de A ou B peux-tu adapter à ton style ?";
+function makeRepost(){
+const src=document.getElementById("originalVideo").value.trim();
+const goal=document.getElementById("repostGoal").value.trim();
+if(!src&&!goal){notify("Décris la vidéo ou l'objectif");return;}
+const prompt=`Source / lien : ${src || "idée libre"}\nObjectif : ${goal || "créer une version originale et dynamique"}. Donne un nouvel angle, des accroches et un plan étape par étape.`;
+callAI(prompt,"repostOutput");
 }
 
 function saveItem(){
@@ -558,4 +389,5 @@ area.appendChild(div);
 renderLibrary();
 </script>
 </body>
-</html>
+  </html>
+  
