@@ -390,4 +390,56 @@ renderLibrary();
 </script>
 </body>
   </html>
-  
+  async function callAI(promptText, outputId){
+const out=document.getElementById(outputId);
+if(!promptText.trim()){notify("Écris ou colle quelque chose d'abord");return;}
+out.textContent="Traitement en cours...";
+
+const systemMsg="Tu es un assistant pratique et direct en français. Réponds clairement et concrètement à ce que l'utilisateur demande, même s'il colle un lien ou une courte consigne. Si un lien social (TikTok, Instagram, YouTube, etc.) est donné sans que tu puisses lire la vidéo directement, exploite le lien et propose immédiatement des hooks, scripts, angles et plans d'action exploitables sans te plaindre.";
+
+try{
+if(!GROQ_API_KEY||GROQ_API_KEY.includes("COLLE_TA_CLE")){
+out.textContent="Ajoute ta clé GROQ_API_KEY dans le code.";return;
+}
+
+const modelsRes=await fetch("https://api.groq.com/openai/v1/models",{
+headers:{"Authorization":"Bearer "+GROQ_API_KEY}
+});
+const modelsData=await modelsRes.json();
+if(!modelsRes.ok){
+out.textContent="Erreur clé/modèles Groq : "+(modelsData.error?.message||modelsRes.status);
+return;
+}
+
+const availableModels=(modelsData.data||[]).map(m=>m.id);
+const preferred=["llama-3.3-70b-versatile","llama-3.1-8b-instant","gemma2-9b-it","mixtral-8x7b-32768"];
+const chosenModel=preferred.find(m=>availableModels.includes(m))||availableModels[0];
+
+if(!chosenModel){
+out.textContent="Aucun modèle Groq disponible sur ce compte.";
+return;
+}
+
+const res=await fetch("https://api.groq.com/openai/v1/chat/completions",{
+method:"POST",
+headers:{
+"Content-Type":"application/json",
+"Authorization":"Bearer "+GROQ_API_KEY
+},
+body:JSON.stringify({
+model:chosenModel,
+messages:[
+{role:"system",content:systemMsg},
+{role:"user",content:promptText}
+],
+temperature:0.7
+})
+});
+const data=await res.json();
+if(!res.ok){out.textContent="Erreur Groq ("+chosenModel+") : "+(data.error?.message||res.status);return;}
+out.textContent=data.choices?.[0]?.message?.content||"Aucune réponse.";
+}catch(err){
+out.textContent="Erreur réseau : "+err.message;
+}
+}
+
