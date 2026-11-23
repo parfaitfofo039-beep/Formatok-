@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -14,7 +13,7 @@
 }
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--text);
-font-family:system-ui,Arial,sans-serif;padding-bottom:30px}
+font-family:system-ui,Arial,sans-serif;padding-bottom:36px}
 header{padding:18px;border-bottom:1px solid var(--line);
 display:flex;justify-content:space-between;align-items:center;
 position:sticky;top:0;background:#0b0e15;z-index:10}
@@ -25,7 +24,7 @@ nav{display:flex;overflow-x:auto;gap:7px;padding:12px;
 background:#101521;position:sticky;top:65px;z-index:9}
 nav button{white-space:nowrap;border:1px solid var(--line);
 background:var(--card);color:white;padding:10px 13px;
-border-radius:9px;font-size:12px}
+border-radius:9px;font-size:12px;cursor:pointer}
 nav button.active{background:var(--green);color:#111;font-weight:bold}
 main{padding:15px;max-width:850px;margin:auto}
 .page{display:none}
@@ -37,7 +36,6 @@ border:1px solid #405a3b;margin-bottom:18px}
 .hero h1 span{color:var(--green)}
 .hero p{color:#c3d0c4;font-size:13px}
 h2{font-size:19px;margin-top:22px}
-h3{font-size:15px}
 small,.muted{color:var(--muted)}
 .card{background:var(--card);border:1px solid var(--line);
 padding:15px;border-radius:13px;margin:12px 0}
@@ -50,16 +48,18 @@ textarea{resize:vertical;min-height:85px}
 button.action{
 width:100%;padding:13px;margin-top:12px;
 border:0;border-radius:9px;background:var(--green);
-color:#10150b;font-weight:800;font-size:13px}
+color:#10150b;font-weight:800;font-size:13px;cursor:pointer}
 button.secondary{background:#26344a;color:white}
 button.danger{background:#532a32;color:white}
+.btn-row{display:flex;gap:8px;margin-top:10px}
+.btn-row button{margin-top:0;flex:1}
 .output{white-space:pre-wrap;line-height:1.6;
 background:#0d121c;border:1px solid var(--line);
 border-radius:10px;padding:13px;margin-top:13px;
 font-size:13px;overflow-wrap:anywhere}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .tile{background:var(--card);padding:16px;border:1px solid var(--line);
-border-radius:12px;text-align:left;color:white;min-height:100px}
+border-radius:12px;text-align:left;color:white;min-height:100px;cursor:pointer}
 .tile b{display:block;font-size:22px;color:var(--green)}
 .tile span{display:block;font-size:12px;color:var(--muted);margin-top:7px}
 .tag{display:inline-block;padding:5px 9px;border-radius:20px;
@@ -70,7 +70,9 @@ video{width:100%;border-radius:12px;margin-top:12px;
 background:black;max-height:400px}
 .item{padding:13px;background:var(--card);border:1px solid var(--line);
 border-radius:10px;margin:9px 0;overflow-wrap:anywhere}
-a{color:var(--blue)}
+.toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);
+background:var(--green);color:#10150b;font-weight:700;font-size:12px;
+padding:10px 16px;border-radius:999px;z-index:50;display:none}
 footer{text-align:center;color:var(--muted);font-size:10px;padding:30px}
 </style>
 </head>
@@ -101,48 +103,47 @@ footer{text-align:center;color:var(--muted);font-size:10px;padding:30px}
 <div class="hero">
 <span class="tag">VIRAL CONTENT INTELLIGENCE</span>
 <h1>Crée mieux.<br><span>Comprends le viral.</span></h1>
-<p>Recherche des créateurs, analyse les vidéos et développe tes propres contenus originaux.</p>
+<p>Génère des scripts, prépare tes montages et organise tes idées directement sur ton téléphone.</p>
 </div>
 
 <div class="grid">
 <button class="tile" onclick="go('accounts')">
 <b>◎</b><strong>Recherche de comptes</strong>
-<span>Découvrir des créateurs dans toutes les niches.</span>
+<span>Liens de recherche ciblés par niche et format.</span>
 </button>
 <button class="tile" onclick="go('analysis')">
 <b>◉</b><strong>Analyse vidéo</strong>
-<span>Comprendre pourquoi une vidéo fonctionne.</span>
+<span>Grille d'audit et points clés à vérifier.</span>
 </button>
 <button class="tile" onclick="go('downloader')">
 <b>↓</b><strong>Importer une vidéo</strong>
-<span>Préparer une vidéo pour l'analyse.</span>
+<span>Prévisualiser un fichier vidéo local.</span>
 </button>
 <button class="tile" onclick="go('studio')">
 <b>▣</b><strong>Repost Studio</strong>
-<span>Créer une nouvelle version éditoriale.</span>
+<span>Découpage et angles pour refaire une vidéo.</span>
 </button>
 <button class="tile" onclick="go('scripts')">
-<b>✎</b><strong>Scripts IA</strong>
-<span>Préparer des narrations et des hooks.</span>
+<b>✎</b><strong>Scripts</strong>
+<span>Générer hooks, voix off et structure de vidéo.</span>
 </button>
 <button class="tile" onclick="go('trends')">
 <b>↗</b><strong>Radar des tendances</strong>
-<span>Explorer les sujets de ta niche.</span>
+<span>Requêtes ciblées par pays et plateforme.</span>
 </button>
 </div>
 
 <h2>Ton espace de travail</h2>
 <div class="card">
-<strong>Bienvenue sur Formatok.</strong>
-<p class="muted">Ton laboratoire de recherche et de création de contenu.</p>
-<p class="muted">Les connexions IA et les données en direct seront activées avec le backend.</p>
+<strong>Formatok actif en mode local (0 FCFA).</strong>
+<p class="muted">Les générateurs de scripts, plans de montage et la bibliothèque fonctionnent sans serveur payant. Les recherches ouvrent les plateformes dans ton navigateur.</p>
 </div>
 </section>
 
 <!-- RECHERCHE DE COMPTES -->
 <section class="page" id="accounts">
 <h2>Recherche intelligente de comptes</h2>
-<p class="muted">Trouve des créateurs et des formats à étudier.</p>
+<p class="muted">Génère des liens de recherche directs selon ta niche et ton format.</p>
 
 <div class="card">
 <label>Quelle niche recherches-tu ?</label>
@@ -167,12 +168,12 @@ footer{text-align:center;color:var(--muted);font-size:10px;padding:30px}
 <option>Histoire réelle</option>
 </select>
 
-<button class="action" onclick="searchAccounts()">Rechercher les comptes</button>
-<div id="accountOutput" class="output">Les recherches apparaîtront ici.</div>
+<button class="action" onclick="searchAccounts()">Générer les liens de recherche</button>
+<div id="accountOutput" class="output">Les liens de recherche apparaîtront ici.</div>
+<div class="btn-row">
+<button class="action secondary" onclick="copyText('accountOutput')">Copier</button>
+<button class="action secondary" onclick="saveFromOutput('accountOutput','Recherche comptes')">Sauvegarder</button>
 </div>
-
-<div class="notice">
-La recherche ouvre les sources publiques de la plateforme. Les profils doivent être vérifiés et sélectionnés : aucun compte fictif ne sera présenté comme un résultat réel.
 </div>
 </section>
 
@@ -186,8 +187,12 @@ La recherche ouvre les sources publiques de la plateforme. Les profils doivent �
 <label>Décris la vidéo ou ses scènes</label>
 <textarea id="analysisNotes" placeholder="Que se passe-t-il ? Quelle est la voix off ? Comment commence la vidéo ?"></textarea>
 
-<button class="action" onclick="analyzeVideo()">Préparer l'analyse</button>
-<div id="analysisOutput" class="output">Ton rapport apparaîtra ici.</div>
+<button class="action" onclick="analyzeVideo()">Générer la grille d'analyse</button>
+<div id="analysisOutput" class="output">Ta grille d'analyse apparaîtra ici.</div>
+<div class="btn-row">
+<button class="action secondary" onclick="copyText('analysisOutput')">Copier</button>
+<button class="action secondary" onclick="saveFromOutput('analysisOutput','Analyse vidéo')">Sauvegarder</button>
+</div>
 </div>
 </section>
 
@@ -207,20 +212,20 @@ La recherche ouvre les sources publiques de la plateforme. Les profils doivent �
 <video id="preview" controls style="display:none"></video>
 </div>
 <div class="notice">
-L'importation locale fonctionne. Le téléchargement automatique depuis les réseaux n'est pas encore connecté. N'utilise que des vidéos que tu possèdes ou que tu es autorisé à télécharger et réutiliser.
+La lecture vidéo locale fonctionne sur ton appareil. Le téléchargement direct depuis TikTok/Instagram/YouTube n'est pas intégré.
 </div>
 </section>
 
 <!-- REPOST STUDIO -->
 <section class="page" id="studio">
 <h2>Repost Studio</h2>
-<p class="muted">Prépare une transformation éditoriale originale.</p>
+<p class="muted">Transforme une idée ou vidéo existante en plan de création structuré.</p>
 <div class="card">
-<label>Décris la vidéo originale</label>
-<textarea id="originalVideo" placeholder="Raconte ce qui se passe dans la vidéo..."></textarea>
+<label>Décris la vidéo ou l'idée originale</label>
+<textarea id="originalVideo" placeholder="Ex : un but refusé à la dernière minute ou une astuce cuisine rapide..."></textarea>
 
 <label>Objectif</label>
-<input id="repostGoal" placeholder="Ex : faire une vidéo plus captivante de 45 secondes">
+<input id="repostGoal" placeholder="Ex : captiver en 3 secondes et aller à l'essentiel en 45s">
 
 <label>Style</label>
 <select id="repostStyle">
@@ -231,8 +236,12 @@ L'importation locale fonctionne. Le téléchargement automatique depuis les rés
 <option>Éducatif</option>
 </select>
 
-<button class="action" onclick="makeRepost()">Construire ma version</button>
+<button class="action" onclick="makeRepost()">Générer le plan</button>
 <div id="repostOutput" class="output">Ton plan apparaîtra ici.</div>
+<div class="btn-row">
+<button class="action secondary" onclick="copyText('repostOutput')">Copier</button>
+<button class="action secondary" onclick="saveFromOutput('repostOutput','Plan Repost Studio')">Sauvegarder</button>
+</div>
 </div>
 </section>
 
@@ -241,10 +250,10 @@ L'importation locale fonctionne. Le téléchargement automatique depuis les rés
 <h2>Générateur de scripts</h2>
 <div class="card">
 <label>Sujet de la vidéo</label>
-<input id="topic" placeholder="Ex : pourquoi ce joueur a disparu ?">
+<input id="topic" placeholder="Ex : pourquoi ce joueur a disparu du terrain ?">
 
 <label>Niche</label>
-<input id="scriptNiche" placeholder="Football, cuisine, animaux...">
+<input id="scriptNiche" placeholder="Ex : football, cuisine, finance...">
 
 <label>Durée</label>
 <select id="duration">
@@ -264,10 +273,14 @@ L'importation locale fonctionne. Le téléchargement automatique depuis les rés
 </select>
 
 <label>Instructions supplémentaires</label>
-<textarea id="instructions" placeholder="Ton, public, langue, détails..."></textarea>
+<textarea id="instructions" placeholder="Ex : ton direct, phrases courtes, fin avec question..."></textarea>
 
 <button class="action" onclick="generateScript()">Générer mon script</button>
 <div id="scriptOutput" class="output">Ton script apparaîtra ici.</div>
+<div class="btn-row">
+<button class="action secondary" onclick="copyText('scriptOutput')">Copier</button>
+<button class="action secondary" onclick="saveFromOutput('scriptOutput','Script vidéo')">Sauvegarder</button>
+</div>
 </div>
 </section>
 
@@ -279,7 +292,7 @@ L'importation locale fonctionne. Le téléchargement automatique depuis les rés
 <input id="trendNiche" placeholder="Ex : football">
 
 <label>Pays ou audience</label>
-<input id="trendCountry" placeholder="Ex : Royaume-Uni, France, USA">
+<input id="trendCountry" placeholder="Ex : France, Royaume-Uni, Togo">
 
 <label>Plateforme</label>
 <select id="trendPlatform">
@@ -289,8 +302,12 @@ L'importation locale fonctionne. Le téléchargement automatique depuis les rés
 <option>Facebook</option>
 </select>
 
-<button class="action" onclick="searchTrends()">Explorer les tendances</button>
+<button class="action" onclick="searchTrends()">Lancer la recherche de tendances</button>
 <div id="trendOutput" class="output">Les pistes apparaîtront ici.</div>
+<div class="btn-row">
+<button class="action secondary" onclick="copyText('trendOutput')">Copier</button>
+<button class="action secondary" onclick="saveFromOutput('trendOutput','Veille tendances')">Sauvegarder</button>
+</div>
 </div>
 </section>
 
@@ -298,14 +315,18 @@ L'importation locale fonctionne. Le téléchargement automatique depuis les rés
 <section class="page" id="compare">
 <h2>Analyse comparative</h2>
 <div class="card">
-<label>Lien du compte ou vidéo A</label>
-<input id="compareA" placeholder="Premier lien">
+<label>Lien ou nom du contenu A</label>
+<input id="compareA" placeholder="Premier lien ou vidéo A">
 
-<label>Lien du compte ou vidéo B</label>
-<input id="compareB" placeholder="Deuxième lien">
+<label>Lien ou nom du contenu B</label>
+<input id="compareB" placeholder="Deuxième lien ou vidéo B">
 
-<button class="action" onclick="compareContent()">Préparer la comparaison</button>
+<button class="action" onclick="compareContent()">Générer la fiche comparative</button>
 <div id="compareOutput" class="output">Résultat de la comparaison.</div>
+<div class="btn-row">
+<button class="action secondary" onclick="copyText('compareOutput')">Copier</button>
+<button class="action secondary" onclick="saveFromOutput('compareOutput','Comparaison')">Sauvegarder</button>
+</div>
 </div>
 </section>
 
@@ -327,9 +348,19 @@ L'importation locale fonctionne. Le téléchargement automatique depuis les rés
 <footer>FORMATOK APP · CREATOR INTELLIGENCE STUDIO</footer>
 </main>
 
+<div id="toast" class="toast"></div>
+
 <script>
 const tg=window.Telegram?.WebApp;
 if(tg){tg.ready();tg.expand();}
+
+function notify(msg){
+const t=document.getElementById("toast");
+t.textContent=msg;
+t.style.display="block";
+clearTimeout(window._toastTimer);
+window._toastTimer=setTimeout(()=>{t.style.display="none";},2000);
+}
 
 function go(id){
 document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
@@ -341,15 +372,39 @@ document.querySelectorAll("nav button").forEach(b=>{
 b.addEventListener("click",()=>go(b.dataset.page));
 });
 
-function openSearch(url){
-window.open(url,"_blank");
+function copyText(elementId){
+const txt=document.getElementById(elementId).textContent.trim();
+if(!txt){notify("Rien à copier");return;}
+if(navigator.clipboard?.writeText){
+navigator.clipboard.writeText(txt).then(()=>notify("Copié !")).catch(()=>fallbackCopy(txt));
+}else{
+fallbackCopy(txt);
+}
+}
+function fallbackCopy(txt){
+const ta=document.createElement("textarea");
+ta.value=txt;document.body.appendChild(ta);ta.select();
+try{document.execCommand("copy");notify("Copié !");}catch(e){notify("Copie impossible");}
+ta.remove();
+}
+
+function saveFromOutput(elementId,defaultTitle){
+const txt=document.getElementById(elementId).textContent.trim();
+if(!txt||txt.endsWith("ici.")||txt==="Résultat de la comparaison."){
+notify("Génère d'abord un contenu");return;
+}
+let items=JSON.parse(localStorage.getItem("formatokItems")||"[]");
+items.unshift({title:defaultTitle,content:txt,date:new Date().toLocaleString("fr-FR")});
+localStorage.setItem("formatokItems",JSON.stringify(items));
+renderLibrary();
+notify("Ajouté à la bibliothèque");
 }
 
 function searchAccounts(){
 const niche=document.getElementById("niche").value.trim();
 const platform=document.getElementById("platform").value;
 const type=document.getElementById("accountType").value;
-if(!niche){alert("Entre une niche.");return;}
+if(!niche){notify("Entre une niche");return;}
 let links=[];
 const q=encodeURIComponent(niche+" "+type);
 if(platform==="TikTok"||platform==="toutes")
@@ -362,39 +417,33 @@ if(platform==="Facebook"||platform==="toutes")
 links.push("Facebook : https://www.google.com/search?q=site%3Afacebook.com%2Freel%2F+"+q);
 
 document.getElementById("accountOutput").textContent=
-"RECHERCHE : "+niche+"\nFormat : "+type+
-"\n\nOuvre les sources suivantes pour découvrir des comptes publics :\n\n"+
+"RECHERCHE : "+niche+" ("+type+")\n\n"+
 links.join("\n\n")+
-"\n\nÉtudie les comptes trouvés : voix off, images réelles, montage, narration et fréquence de publication.";
+"\n\nÀ observer sur les comptes trouvés :\n- Les 3 premières secondes (accroche)\n- La vitesse des coupures\n- Le rythme de la voix off";
 }
 
 function analyzeVideo(){
-const link=document.getElementById("analysisLink").value;
-const notes=document.getElementById("analysisNotes").value;
-if(!link&&!notes){alert("Ajoute un lien ou une description.");return;}
+const link=document.getElementById("analysisLink").value.trim();
+const notes=document.getElementById("analysisNotes").value.trim();
+if(!link&&!notes){notify("Ajoute un lien ou des notes");return;}
 document.getElementById("analysisOutput").textContent=
-"RAPPORT D'ANALYSE À COMPLÉTER\n\n"+
-"Source : "+(link||"Vidéo importée")+
-"\n\nCONTEXTE :\n"+notes+
-"\n\n1. HOOK : identifier ce qui attire dans les 3 premières secondes.\n"+
-"2. PROMESSE : quelle question ou attente est créée ?\n"+
-"3. STORYTELLING : comment l'histoire progresse-t-elle ?\n"+
-"4. RYTHME : où se trouvent les changements de plans ?\n"+
-"5. VOIX OFF : ton, clarté, rythme et émotion.\n"+
-"6. VISUELS : pertinence des images et séquences.\n"+
-"7. FIN : révélation, conclusion et CTA.\n"+
-"8. AMÉLIORATION : proposer un nouvel angle et une narration originale.\n\n"+
-"Note : une vraie analyse automatique nécessite un moteur IA connecté et l'accès au contenu vidéo. Les statistiques de rétention ne sont pas supposées.";
+"FICHE D'ANALYSE\n"+
+"Source : "+(link||"Non précisée")+"\n"+
+(notes?"Notes : "+notes+"\n":"")+
+"\n1. Accroche (0-3s) : quel élément visuel ou sonore retient l'attention ?\n"+
+"2. Enjeu : pourquoi le spectateur doit-il rester jusqu'à la fin ?\n"+
+"3. Rythme : à quel intervalle l'image ou le plan change-t-il ?\n"+
+"4. Clarté audio : le message est-il compréhensible sans le son ?\n"+
+"5. Fin : y a-t-il une chute nette ou une question qui relance ?";
 }
 
 function checkMedia(){
 const link=document.getElementById("mediaLink").value.trim();
-if(!link){alert("Colle un lien.");return;}
+if(!link){notify("Colle un lien");return;}
 let host;
-try{host=new URL(link).hostname;}catch(e){alert("Lien invalide.");return;}
+try{host=new URL(link).hostname;}catch(e){notify("Lien invalide");return;}
 document.getElementById("mediaStatus").textContent=
-"Plateforme détectée : "+host+
-"\n\nLe lien est enregistré pour référence. Cette version ne télécharge pas automatiquement les vidéos depuis les plateformes.\n\nSi tu as le droit d'utiliser la vidéo, importe le fichier directement depuis ton téléphone.";
+"Domaine : "+host+"\nLien valide. Utilise l'importation de fichier ci-dessous pour lire une vidéo locale sur ton téléphone.";
 }
 
 let currentVideo=null;
@@ -406,96 +455,79 @@ currentVideo=URL.createObjectURL(f);
 const v=document.getElementById("preview");
 v.src=currentVideo;v.style.display="block";
 document.getElementById("videoInfo").textContent=
-"FICHIER IMPORTÉ\nNom : "+f.name+
-"\nTaille : "+(f.size/1024/1024).toFixed(2)+" MB"+
-"\nType : "+f.type+
-"\n\nTu peux maintenant visionner cette vidéo sur ton téléphone.";
+"Fichier : "+f.name+"\nTaille : "+(f.size/1024/1024).toFixed(2)+" MB";
 });
 
 function makeRepost(){
-const source=document.getElementById("originalVideo").value;
-const goal=document.getElementById("repostGoal").value;
+const source=document.getElementById("originalVideo").value.trim();
+const goal=document.getElementById("repostGoal").value.trim();
 const style=document.getElementById("repostStyle").value;
-if(!source){alert("Décris la vidéo originale.");return;}
+if(!source){notify("Décris la vidéo ou l'idée");return;}
+const obj=goal||"créer une version claire et dynamique";
 document.getElementById("repostOutput").textContent=
-"PLAN REPOST STUDIO\n\n"+
-"Objectif : "+goal+
-"\nStyle : "+style+
-"\n\n00:00–00:03 : Nouveau hook surprenant.\n"+
-"00:03–00:10 : Contexte et présentation du sujet.\n"+
-"00:10–00:25 : Développement avec narration originale.\n"+
-"00:25–00:35 : Moment fort et progression émotionnelle.\n"+
-"00:35–FIN : Conclusion et CTA.\n\n"+
-"SOURCE : "+source+
-"\n\nÀ PRODUIRE :\n- Voix off originale.\n- Sous-titres synchronisés.\n- Plans pertinents et autorisés.\n- Effets sonores adaptés.\n- Montage dynamique.\n\nCe plan est une structure de départ, pas un montage vidéo automatique.";
+"PLAN DE PRODUCTION ("+style+")\n"+
+"Objectif : "+obj+"\n\n"+
+"[00:00 - 00:03] Accroche : poser le point clé de \""+source+"\" sans détour.\n"+
+"[00:03 - 00:15] Mise en contexte : expliquer ce qui se passe et pourquoi ça compte.\n"+
+"[00:15 - 00:35] Corps : détailler les faits ou étapes avec des plans courts.\n"+
+"[00:35 - FIN] Fin : résumer l'idée principale et inviter à commenter ou partager.";
 }
 
 function generateScript(){
-const topic=document.getElementById("topic").value;
-const niche=document.getElementById("scriptNiche").value;
+const topic=document.getElementById("topic").value.trim();
+const niche=document.getElementById("scriptNiche").value.trim();
 const duration=document.getElementById("duration").value;
 const tone=document.getElementById("tone").value;
-const extra=document.getElementById("instructions").value;
-if(!topic){alert("Entre un sujet.");return;}
-const result=
-"BRIEF DU SCRIPT\n\n"+
-"Niche : "+niche+
-"\nSujet : "+topic+
-"\nDurée : "+duration+
-"\nStyle : "+tone+
-"\nInstructions : "+extra+
-"\n\nSTRUCTURE DE NARRATION\n\n"+
-"[HOOK – 0 à 3 secondes]\nCommence par une phrase forte, une question ou un contraste qui donne envie de regarder.\n\n"+
-"[INTRODUCTION]\nPrésente rapidement le sujet sans longue introduction.\n\n"+
-"[DÉVELOPPEMENT]\nRaconte les faits dans un ordre logique. Chaque phrase doit apporter une information ou créer une attente.\n\n"+
-"[MOMENT FORT]\nPrésente la révélation, le problème ou le retournement principal.\n\n"+
-"[CONCLUSION]\nTermine avec une idée mémorable et un appel à l'action naturel.\n\n"+
-"NOTE : ce prototype prépare une structure. Pour rédiger automatiquement un script complet et personnalisé, il faudra connecter un modèle IA.";
-document.getElementById("scriptOutput").textContent=result;
+const extra=document.getElementById("instructions").value.trim();
+if(!topic){notify("Entre un sujet");return;}
+const nicheLabel=niche?niche:"ta thématique";
+document.getElementById("scriptOutput").textContent=
+"SCRIPT ("+duration+" · "+tone+" · "+nicheLabel+")\n\n"+
+"1. HOOK (0-3s)\n\""+topic+" — voici ce que la plupart des gens ratent.\"\n\n"+
+"2. DÉVELOPPEMENT\n- Contexte : explique brièvement pourquoi \""+topic+"\" attire l'attention en "+nicheLabel+".\n"+
+"- Point clé 1 : donne le fait principal en une phrase courte.\n"+
+"- Point clé 2 : ajoute un exemple concret ou un contraste.\n\n"+
+"3. CONCLUSION / CTA\nRésume en une phrase forte et pose une question simple aux spectateurs."
++(extra?"\n\nConsignes appliquées : "+extra:"");
 }
 
 function searchTrends(){
-const niche=document.getElementById("trendNiche").value;
-const country=document.getElementById("trendCountry").value;
+const niche=document.getElementById("trendNiche").value.trim();
+const country=document.getElementById("trendCountry").value.trim();
 const platform=document.getElementById("trendPlatform").value;
-if(!niche){alert("Entre une niche.");return;}
-const q=encodeURIComponent(niche+" tendances actualité "+country);
-let url="https://www.google.com/search?q="+q;
-if(platform==="YouTube")url="https://www.youtube.com/results?search_query="+encodeURIComponent(niche+" "+country);
+if(!niche){notify("Entre une niche");return;}
+const queryText=[niche,country,platform,"tendances"].filter(Boolean).join(" ");
+const url=platform==="YouTube"
+?"https://www.youtube.com/results?search_query="+encodeURIComponent(queryText)
+:"https://www.google.com/search?q="+encodeURIComponent(queryText);
 document.getElementById("trendOutput").textContent=
-"VEILLE : "+niche+
-"\nAudience : "+country+
-"\nPlateforme : "+platform+
-"\n\nUne recherche web va s'ouvrir. Vérifie la date des contenus, les sources et la popularité réelle avant de retenir une tendance.";
-openSearch(url);
+"REQUÊTE : "+queryText+"\nLien : "+url+"\n\nOuverture dans un nouvel onglet...";
+window.open(url,"_blank");
 }
 
 function compareContent(){
-const a=document.getElementById("compareA").value;
-const b=document.getElementById("compareB").value;
-if(!a||!b){alert("Ajoute les deux liens.");return;}
+const a=document.getElementById("compareA").value.trim();
+const b=document.getElementById("compareB").value.trim();
+if(!a||!b){notify("Renseigne A et B");return;}
 document.getElementById("compareOutput").textContent=
-"COMPARAISON À EFFECTUER\n\n"+
-"CONTENU A : "+a+
-"\n\nCONTENU B : "+b+
-"\n\nCompare les critères suivants :\n"+
-"1. Hook et promesse.\n2. Storytelling.\n3. Qualité de narration.\n"+
-"4. Rythme de montage.\n5. Images et plans.\n"+
-"6. Durée et conclusion.\n7. Interactions publiques disponibles.\n\n"+
-"Les liens ne sont pas analysés automatiquement dans cette version.";
+"COMPARATIF\nA : "+a+"\nB : "+b+"\n\n"+
+"- Accroche : lequel capte l'attention en premier ?\n"+
+"- Rythme : lequel enchaîne le plus efficacement les idées ?\n"+
+"- Rétention : lequel donne le plus envie d'aller au bout ?\n"+
+"- Reprise : quel angle de A ou B peux-tu adapter à ton style ?";
 }
 
 function saveItem(){
 const title=document.getElementById("saveTitle").value.trim();
 const content=document.getElementById("saveContent").value.trim();
-if(!title||!content){alert("Remplis le titre et le contenu.");return;}
+if(!title||!content){notify("Remplis titre et contenu");return;}
 let items=JSON.parse(localStorage.getItem("formatokItems")||"[]");
 items.unshift({title,content,date:new Date().toLocaleString("fr-FR")});
 localStorage.setItem("formatokItems",JSON.stringify(items));
 document.getElementById("saveTitle").value="";
 document.getElementById("saveContent").value="";
 renderLibrary();
-alert("Enregistré !");
+notify("Enregistré !");
 }
 
 function renderLibrary(){
